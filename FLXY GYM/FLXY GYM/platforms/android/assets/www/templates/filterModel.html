@@ -33,13 +33,13 @@
 </div>
 <div class="card  animated zoomIn">
   <div class="item item-divider">
-   Select Price
+   Select Price ({{numberSelection}})
   </div>
-  <div class="item range">
-  20
-  <input type="range" name="">
-  1000
-</div>
+    <div class="range range-positive">
+        1000
+        <input type="range" name="volume" min="1000" max="2000" value="{{numberSelection}}" ng-model="numberSelection">
+        2000
+    </div>
 </div>
   <div style="height:100px"></div>
     </ion-content>

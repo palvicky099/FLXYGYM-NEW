@@ -14,8 +14,6 @@ app.controller('dashboardCtrl', function($cordovaGeolocation, $scope, $state, $i
 //dataService.getGymMemberDetails().then(function (result) {
 //  console.log(result);
 // });
-
-
  
 	$scope.dashList = [
 	{

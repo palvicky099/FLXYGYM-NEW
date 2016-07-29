@@ -1,14 +1,13 @@
 app.controller('listCtrl', function($scope, $state, $ionicModal, $ionicLoading, $rootScope) {
-    //$scope.$on('$ionicView.enter', function () {
-   
-        var DataArray = [];
+     var DataArray = [];
     var myDate = new Date();
-    var nextDay = new Date(myDate);
     for (var i = 0; i <= 6; i++)
     {
+        var nextDay = new Date();
         nextDay.setDate(myDate.getDate() + i);
         DataArray.push(nextDay.getFullYear() + '-' + ('0' + (nextDay.getMonth() + 1)).slice(-2) + '-' + ('0' + nextDay.getDate()).slice(-2));
     }
+    $scope.numberSelection = 1500;
     $scope.dateScope = DataArray;
     $scope.categoryName = $rootScope.HeaderName;
 	$scope.listArray = 
