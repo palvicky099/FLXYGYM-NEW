@@ -1,0 +1,71 @@
+<ion-view hide-nav-bar="true" class="greyBackgorund" cache-view="false">
+    <ion-header-bar class="flxy-button">
+        <button ui-sref="list" class="button  button-clear icon ion-ios-arrow-left" style="color:white;">
+            <span class="headerStyle">Detail</span>
+        </button>
+    </ion-header-bar>
+    <ion-content>
+    <div class="list">
+
+  <div class="item item-image animated zoomIn">
+    <img src="{{detailItem.gymImg}}">
+   
+  </div>
+  <a class="item item-icon-right Paddingtop animated zoomIn">
+    <h2 style="color:red;">{{detailItem.gymName}}</h2>
+    <p>{{detailItem.gymAddress}}
+     </p>
+  </a>
+   
+   <div class="card Paddingtop animated zoomIn">
+   <div class="item" style="color:red">
+    More
+  </div>
+     <a class="item item-icon-left">
+        <i class="icon ion-ios-calendar-outline"></i>
+        23 April
+    </a>
+    <a class="item item-icon-left">
+        <i class="icon ion-ios-time-outline"></i>
+        16:00 - 17:00 (60 mints)
+    </a>
+    <a class="item item-icon-left">
+        <i class="icon ion-qr-scanner"></i>
+        Medium
+    </a>
+    <a class="item item-icon-left">
+        <i class="icon ion-transgender"></i>
+       Unisex
+    </a>
+</div>
+  
+  <a class="item item-icon-right item-text-wrap Paddingtop animated zoomIn">
+    <h2 style="color:red">About</h2>
+    <p>There aren't enough hours in the day" Is a sentence we've all muttered, when another deadline has pushed our workout back again.
+</p>
+  </a>
+  <a class="item item-icon-right item-text-wrap Paddingtop animated zoomIn" >
+    <h2 style="color:red">Instructor</h2>
+    <p>There aren't enough hours in the day" Is a sentence we've all muttered, when another deadline has pushed our workout back again.
+</p>
+  </a>
+</div>
+<div style="height: 150px"></div>
+    </ion-content>
+    <div class="tabs flxy-tabs" style="position:fixed;bottom:47px; border:none;border-color:#444444 !important">
+      <a class="tab-item" ng-click="call()">
+        <i class="icon ion-ios-telephone"></i>
+      </a>
+      <a class="tab-item" ui-sref="gymGallary">
+        <i class="icon ion-images"></i>
+      </a>
+      <a class="tab-item" ui-sref="distanceMap">
+        <i class="icon ion-ios-location"></i>
+      </a>
+    </div>
+    <div class="tabs flxy-tabs" style="border-color:#444444 !important">
+    <a class="tab-item" style="font-weight: 900; border:none;border-color:#444444 !important" ng-click="reserve()">
+      RESERVE
+    </a>
+</div>
+</ion-view>

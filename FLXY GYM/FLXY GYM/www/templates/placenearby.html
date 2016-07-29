@@ -1,0 +1,44 @@
+<ion-view hide-nav-bar="true" class="greyBackgorund" cache-view="false">
+    <ion-header-bar class="flxy-button" style="border:none">
+        <button ui-sref="app.dashboard" class="button  button-clear icon ion-ios-arrow-left" style="color:white;">
+            <span class="headerStyle">PLACE NEARBY</span>
+        </button>
+    </ion-header-bar>
+    <div class="bar bar-subheader item-input-inset" style="background-color: red; border:none">
+        <div class="item-input-wrapper">
+            <input type="text" placeholder="Search Gym" ng-model="search">
+        </div>
+    </div>
+    <div class="list card list-inset Paddingtop animated zoomIn" style="position:fixed;bottom:-10px; z-index:1000; width:104%;left:-10px">
+              <label class="item item-input item-select flxy-tabs">
+                  <div class="input-label flxy-tabs">
+                 Select City               
+                    </div>
+                  <select class="flxy-tabs">
+                      <option selected>Mumbai</option>
+                      <option >Delhi</option>
+                      <option>Noida</option>
+                      <option>Goa</option>                      
+                  </select>
+              </label>
+          </div>
+    <ion-content style="margin-top:50px">
+     
+    <div class="list">
+    <a class="item item-thumbnail-left item-text-wrap Paddingtop animated zoomIn" ng-repeat="l in listArray | filter : search" ng-click="goDetail(l)">
+      <img src="{{l.gymImg}}" id="listImg">
+      <h2 style="color: red">{{l.gymCategory}}</h2>
+      <p>{{l.gymTime}}</p>
+      <p>{{l.gymName}} ({{l.gymAddress}})</p>  
+       
+<p style="color:green">{{l.gymPrice}}</p>
+    <span class="item-note">
+  
+  {{l.gymDistance}}
+    </span>
+     <rating ng-model="l.gymRating" max="5" readonly="readOnly" style="position:fixed;left:10px; color:#e6b500"></rating>
+    </a>
+</div>
+<div style="height:100px"></div>
+    </ion-content>
+</ion-view>
