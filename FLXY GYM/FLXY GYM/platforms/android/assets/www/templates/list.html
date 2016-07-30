@@ -9,17 +9,16 @@
           <div class="col abc" ng-repeat="d in dateScope" ng-click="dateClick()"><h4 class="week">{{d | date:'dd' }}</h4><h5 class="week">{{d | date:'EEE' }}</h5></div>
       </div>
     <ion-content class="" style="margin-top:75px">
-
     <div class="list">
-    <a class="item item-thumbnail-left item-text-wrap Paddingtop animated zoomIn" ng-repeat="l in listArray | filter: { gymCategory: categoryName}" ng-click="goDetail(l)">
-      <img src="{{l.gymImg}}" id="listImg">
-      <h2 style="color: red">{{l.gymName}}</h2>
-      <p>{{l.gymTime}}</p>
-       <p>{{l.gymAddress}}</p>
-<p style="color:green">{{l.gymPrice}}</p>
+    <a class="item item-thumbnail-left item-text-wrap Paddingtop animated zoomIn" ng-repeat="l in listArray" ng-click="goDetail(l)">
+      <img image-lazy-src="{{ l.center_imgpath }}" image-lazy-loader="lines" image-lazy-distance-from-bottom-to-load="-200"  id="listImg">
+      <h2 style="color: red">{{l.center_name}}</h2>
+      <p>10am to 12pm</p>
+       <p>{{l.location}}</p>
+<p style="color:green">{{l.price}} Rs</p>
     <span class="item-note">
   
-  {{l.gymDistance}}
+  {{l.distance}} KMs
     </span>
      <rating ng-model="l.gymRating" max="5" readonly="readOnly" style="position:fixed;left:10px; color:#e6b500"></rating>
     </a>

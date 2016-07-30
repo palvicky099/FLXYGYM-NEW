@@ -7,28 +7,33 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-device": {
+        "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.ionicframework.ionicsidemenu"
         },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.ionicsidemenu"
         },
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ionicframework.ionicsidemenu"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.ionicframework.ionicsidemenu"
+        },
+        "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.ionicframework.ionicsidemenu"
         },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.ionicframework.ionicsidemenu"
         },
-        "ionic-plugin-keyboard": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.ionicframework.ionicsidemenu"
         },
-        "cordova-plugin-geolocation": {
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.ionicframework.ionicsidemenu"
+        },
+        "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.ionicsidemenu"
         }
     },
-    "dependent_plugins": {
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.ionicframework.ionicsidemenu"
-        }
-    }
+    "dependent_plugins": {}
 }

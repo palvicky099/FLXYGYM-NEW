@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('app', ['ionic', 'starter.controllers', 'ngCordova', 'ionic.rating', 'starter.services'])
-
-.run(function($ionicPlatform) {
+var db = null;
+var app = angular.module('app', ['ionic', 'starter.controllers', 'ngCordova', 'ionic.rating', 'starter.services', 'ionicLazyLoad'])
+.run(function ($ionicPlatform, $cordovaSQLite, $rootScope) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -15,7 +15,22 @@ var app = angular.module('app', ['ionic', 'starter.controllers', 'ngCordova', 'i
     if (window.StatusBar) {
       StatusBar.styleDefault();
     }
+    db = window.openDatabase("FLXY.db", "1.0", "FLXYGYM", 500000);
+      // db = $cordovaSQLite.openDB('WD.db');
+    //--------------GYM center table------------------
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS gymCenter (id integer primary key,cat_id text, center_id text, " +
+                              " center_name text, center_imgpath text, price text, price_id text, address text , branch_addr text," +
+                              " center_slot_data text, grade text, grade_id text, landmark text, latitude text, longitude text, " +
+                              " margin text, s_id text, s_name text, seats_perday text, distance text, location text)");
   });
+  setTimeout(function () {
+  if (navigator.connection.type == Connection.NONE) {
+      $rootScope.categoryLoad();
+  }
+  else {
+      $rootScope.categoryLoad();
+  }
+  }, 2000)
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {

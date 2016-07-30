@@ -100,3 +100,50 @@ ul.rating li {
 ul.rating li i {
   font-size: 13px;
 }*/
+
+ .categoryImg{
+       background-size: cover;
+      max-width: 100%;
+    height: auto;
+        background-color: lightblue;
+ }
+
+ 
+
+.image-loader-container {
+  margin: 9px;
+  max-width: 81px;
+  max-height: 81px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: #e5e5e5;
+  
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
+}
+
+//----Popup------
+.popup-container {
+    background: rgba(0,0,0,0.4);
+}
+.popup-body {
+    background-color: white;
+}
+.popup-head {
+    background-color: white;
+}
+.popup-buttons .button {
+    background-color: #8b103e !important;
+    color: white !important;
+}
+.popup-buttons .button.activated {
+    background-color: #C84E7C !important;
+    /*background-color: #D0628C !important;*/
+}

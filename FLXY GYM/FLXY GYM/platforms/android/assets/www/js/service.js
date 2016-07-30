@@ -8,8 +8,8 @@ angular.module('starter.services', [])
     factory.getCategory = function () {
         return $http.get(url + 'get_category.php');
     };
-    factory.getCenter = function () {
-        return $http.get(url + 'get_center.php');
+    factory.getCenter = function (model) {
+        return $http.get(url + 'get_center.php?Cat_id=' + model);
     };
      factory.getGymMemberDetails = function () {
         return $http.get(url + 'get_gym_member_details.php');
