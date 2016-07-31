@@ -1,6 +1,6 @@
 /* Empty. Add your own CSS if you like */
 .flxy-button{
-    background-color:#e31f08 !important ;
+    background-color: #d41b0d  !important ;
     color:white !important;
 }
 .flxy-tabs {
@@ -8,7 +8,7 @@
     color: white !important;
 }
 .redButton{
-    background-color:#e31f08 !important ;
+    background-color:#d41b0d !important ;
     color:white !important;
 }
 .loginImg{
@@ -140,10 +140,10 @@ ul.rating li i {
     background-color: white;
 }
 .popup-buttons .button {
-    background-color: #8b103e !important;
+    background-color: #d41b0d !important;
     color: white !important;
 }
 .popup-buttons .button.activated {
-    background-color: #C84E7C !important;
+    background-color: #d41b0d !important;
     /*background-color: #D0628C !important;*/
 }

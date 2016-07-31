@@ -11,6 +11,12 @@ angular.module('starter.services', [])
     factory.getCenter = function (model) {
         return $http.get(url + 'get_center.php?Cat_id=' + model);
     };
+    factory.getCenterDetails = function (model) {
+        return $http.get(url + 'get_center_details.php?c_id=' + model);
+    };
+    factory.getAllGymCenter = function () {
+        return $http.get(url + 'get_center.php');
+    };
      factory.getGymMemberDetails = function () {
         return $http.get(url + 'get_gym_member_details.php');
     };

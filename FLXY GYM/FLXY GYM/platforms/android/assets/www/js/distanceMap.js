@@ -6,14 +6,14 @@ app.controller('distanceMapCtrl', function($scope, $ionicLoading, $state,  $ioni
 
 }
  $scope.$on('$ionicView.enter', function () {
- var lat= localStorage.getItem("lat");
-   var long = localStorage.getItem("long");
-  
+ var lat= window.localStorage.getItem("lat");
+   var long = window.localStorage.getItem("long");
+   $scope.itemDetails = JSON.parse(window.localStorage.getItem("itemDetails"));
     var markers = [
              {
-                 "title": "Rajmachi Trek",
-                 "lat": "18.829891",
-                 "lng": "73.39033",
+                 "title": $scope.itemDetails.center_name,
+                 "lat": $scope.itemDetails.latitude,
+                 "lng": $scope.itemDetails.longitude,
                  "description": "A fort adjoining a historic trade route, Rajmachi (2,710ft) is one of the most exciting and enduring trekking trails around Pune. An 18km trail one way is nothing short of adventure with ancient Buddhist caves, waterfalls, lush greenery, temples, fort ruins that make this place a sought after trekking destination. A stronghold that has witnessed conquests of Shivaji and Mughals stands perched atop two mountain peaks - Shrivardhan and Manoranjan. Rocky routes, panoramic views of the Konkan plains and the backwaters of Shirota Dam are a few of the high points. Friendly locals and camping options at two caves within the fort premise make Rajmachi trek worthwhile.Udhewadi is the base of Rajmachi trek and the activity can be started from Tungarli near Lonavala or Kondivade Village near Karjat."
              }
          ,
@@ -24,8 +24,8 @@ app.controller('distanceMapCtrl', function($scope, $ionicLoading, $state,  $ioni
              "description": 'Current Location'
          }
     ];
-    var latitude1 = parseInt("18.829891");
-    var longitude1 = parseInt("73.39033");
+    var latitude1 = parseInt($scope.itemDetails.latitude);
+    var longitude1 = parseInt($scope.itemDetails.longitude);
     var latitude2 = parseInt(lat);
     var longitude2 = parseInt(long);
     $scope.distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));

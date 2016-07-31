@@ -1,9 +1,20 @@
 app.controller('dashboardCtrl', function($cordovaGeolocation, $scope, $q, $state,$ionicPopup, $ionicSideMenuDelegate, $ionicLoading,$cordovaSQLite, dataService, $rootScope) {
-	//$scope.$on('$ionicView.enter', function () {
+    //$scope.$on('$ionicView.enter', function () {
+    setTimeout(function () {
+            if (navigator.connection.type == Connection.NONE) {
+                var alertPopup = $ionicPopup.alert({
+                    title: ' No internet connection',
+                    template: '<div style="text-align:center; font-size:22px">No internet connectivity detected. Please reconnect and try again.</div>'
+                });
+                alertPopup.then(function (res) {
+                });
+            }
+    },2000)
  $scope.toggleLeftSideMenu = function() {
     $ionicSideMenuDelegate.toggleLeft();
  };
  $rootScope.categoryLoad = function () {
+     loadAllGymData();
      dataService.getCategory().then(function (result) {
          console.log(result.data.response);
          window.localStorage.setItem("Category", JSON.stringify(result.data.response));
@@ -17,7 +28,39 @@ app.controller('dashboardCtrl', function($cordovaGeolocation, $scope, $q, $state
 //dataService.getGymMemberDetails().then(function (result) {
 // console.log(result);
 //});
-	   
+ function loadAllGymData() {
+     dataService.getAllGymCenter().then(function (result) {
+         if (result.data.message == "details found!") {
+             $ionicLoading.show({
+                 noBackdrop: false,
+                 template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Plase wait...</p>'
+             });
+             console.log(result)
+             $scope.gymCenterData = JSON.parse(JSON.stringify(result.data.response));
+             if ($scope.gymCenterData == null) { $scope.gymCenterDatalength = 0; }
+             else { $scope.gymCenterDatalength = $scope.gymCenterData.length; }
+             var promiseReadDataSync = deleteGymCenter();
+             promiseReadDataSync.then(function () {
+                 var promiseDelete = insertGymCenter();
+                 promiseDelete.then(function () {
+                     var listViewQuery = "select * from gymCenter";
+                     $cordovaSQLite.execute(db, listViewQuery, []).then(function (result) {
+                         if (result.rows.length > 0) {
+                             setTimeout(function () {
+                                 $ionicLoading.hide();
+                             }, 2000)
+                         }
+                     }, function (err) {
+                     });
+                 })
+             })
+         }
+         else {
+         }
+     });
+ }
+
+
 //	$scope.dashList = [
 //	{
 //"cat_id":"1",
@@ -94,67 +137,8 @@ app.controller('dashboardCtrl', function($cordovaGeolocation, $scope, $q, $state
 //	];
  $scope.goList = function (l) {
      $rootScope.HeaderName = l.cat_name;
-    if (navigator.connection.type == Connection.NONE) {
-        var alertPopup = $ionicPopup.alert({
-            title: ' No internet connection',
-            template: '<div style="text-align:center; font-size:22px">No internet connectivity detected. Please reconnect and try again.</div>'
-        });
-        alertPopup.then(function (res) {
-        });
-    }
-    else {
-        dataService.getCenter(l.cat_id).then(function (result) {
-           
-           
-            if (result.data.message == "details found!") {
-                $ionicLoading.show({
-                    noBackdrop: false,
-                    template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Plase wait...</p>'
-                });
-            $scope.gymCenterData = JSON.parse(JSON.stringify(result.data.response));
-            if ($scope.gymCenterData == null) { $scope.gymCenterDatalength = 0; }
-            else { $scope.gymCenterDatalength = $scope.gymCenterData.length; }
-            var promiseReadDataSync = deleteGymCenter();
-            promiseReadDataSync.then(function () {
-                var promiseDelete = insertGymCenter();
-                promiseDelete.then(function () {
-                    var listViewQuery = "select * from gymCenter";
-                    $cordovaSQLite.execute(db, listViewQuery, []).then(function (result) {
-                        if (result.rows.length > 0) {
-                            setTimeout(function () {
-                                $state.go('list');
-                                $ionicLoading.hide();
-                            }, 2000)
-                        } 
-                    }, function (err) {
-                    });
-                })
-            })
-
-          
-        }
-        else {
-            ////var delGymCenterQuery = "Delete from gymCenter";
-            ////$cordovaSQLite.execute(db, delGymCenterQuery, []).then(function (res) {
-            ////}, function (err) {
-            ////});
-            $ionicLoading.show({
-                noBackdrop: false,
-                template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">No data available...</p>',
-                content: 'Loading',
-                animation: 'fade-in',
-                showBackdrop: true,
-                duration: 2000,
-                maxWidth: 200,
-                showDelay: 0
-            });
-            setTimeout(function () {
-                $state.go('app.dashboard')
-            },2000)
-        }
-
-    });
-}
+     $rootScope.categoryID = l.cat_id;
+     $state.go('list')
 }
         
 function deleteGymCenter() {
@@ -186,12 +170,12 @@ function insertGymCenter() {
                     var gymCenterQuery = "INSERT INTO gymCenter (cat_id , center_id , " +
                     " center_name , center_imgpath , price , price_id , address  , branch_addr ," +
                     " center_slot_data , grade , grade_id , landmark , latitude , longitude , " +
-                    " margin , s_id , s_name , seats_perday, distance, location) VALUES ";
+                    " margin , s_id , s_name , seats_perday, distance, location, loc_id) VALUES ";
                     var gymCenterArgs = [];
                     var gymCenterDatas = [];
                     for (var i = k; i < j; i++) {
                         var arrayGymCenter = $scope.gymCenterData[i];
-                        gymCenterArgs.push("(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                        gymCenterArgs.push("(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
                      //   gymCenterDatas.push(arrayGymCenter.cat_id);
                         gymCenterDatas.push("SPORTS");
 
@@ -225,6 +209,7 @@ function insertGymCenter() {
                         var distance = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(latitude1, longitude1), new google.maps.LatLng(latitude2, longitude2));
                         gymCenterDatas.push(distance / 1000);
                         gymCenterDatas.push(arrayGymCenter.location);
+                        gymCenterDatas.push(arrayGymCenter.loc_id);
                     }
                     gymCenterQuery += gymCenterArgs.join(", ");
                     $cordovaSQLite.execute(db, gymCenterQuery, gymCenterDatas).then(function (res) {

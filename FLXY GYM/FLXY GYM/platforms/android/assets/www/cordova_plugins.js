@@ -55,6 +55,13 @@ module.exports = [
             "cordova.plugins.Keyboard"
         ],
         "runs": true
+    },
+    {
+        "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
+        "id": "mx.ferreyra.callnumber.CallNumber",
+        "clobbers": [
+            "call"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -68,7 +75,8 @@ module.exports.metadata =
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-whitelist": "1.2.2",
     "cordova-sqlite-storage": "1.4.6-pre6a",
-    "ionic-plugin-keyboard": "1.0.9"
+    "ionic-plugin-keyboard": "1.0.9",
+    "mx.ferreyra.callnumber": "0.0.2"
 };
 // BOTTOM OF METADATA
 });

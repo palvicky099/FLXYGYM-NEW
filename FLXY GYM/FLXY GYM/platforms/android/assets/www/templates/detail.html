@@ -1,31 +1,27 @@
 <ion-view hide-nav-bar="true" class="greyBackgorund" cache-view="false">
     <ion-header-bar class="flxy-button">
-        <button ui-sref="list" class="button  button-clear icon ion-ios-arrow-left" style="color:white;">
+        <button ng-click="goBack()" class="button  button-clear icon ion-ios-arrow-left" style="color:white;">
             <span class="headerStyle">Detail</span>
         </button>
     </ion-header-bar>
     <ion-content>
     <div class="list">
-
   <div class="item item-image animated zoomIn">
     <img src="{{detailItem.center_imgpath}}">
-   
   </div>
-  <a class="item item-icon-right Paddingtop animated zoomIn">
+  <a class="item item-icon-right Paddingtop animated zoomIn item-text-wrap">
     <h2 style="color:red;">{{detailItem.center_name}}</h2>
-    <p>{{detailItem.location}}
+    <p>{{detailItem.address}}
      </p>
   </a>
-   
    <div class="card Paddingtop animated zoomIn">
    <div class="item" style="color:red">
-    More
+    Time slot
   </div>
-     <a class="item item-icon-left">
-        <i class="icon ion-ios-calendar-outline"></i>
-        23 April
+     <a class="item item-icon-left" ng-repeat="t in gymDetails[0].time">
+        {{t}}
     </a>
-    <a class="item item-icon-left">
+    <!--<a class="item item-icon-left">
         <i class="icon ion-ios-time-outline"></i>
         16:00 - 17:00 (60 mints)
     </a>
@@ -36,12 +32,12 @@
     <a class="item item-icon-left">
         <i class="icon ion-transgender"></i>
        Unisex
-    </a>
+    </a>-->
 </div>
   
   <a class="item item-icon-right item-text-wrap Paddingtop animated zoomIn">
     <h2 style="color:red">About</h2>
-    <p>There aren't enough hours in the day" Is a sentence we've all muttered, when another deadline has pushed our workout back again.
+    <p>{{gymDetails[0].about}}
 </p>
   </a>
   <a class="item item-icon-right item-text-wrap Paddingtop animated zoomIn" >
@@ -52,20 +48,21 @@
 </div>
 <div style="height: 150px"></div>
     </ion-content>
-    <div class="tabs flxy-tabs" style="position:fixed;bottom:47px; border:none;border-color:#444444 !important">
-      <a class="tab-item" ng-click="call()">
-        <i class="icon ion-ios-telephone"></i>
-      </a>
-      <a class="tab-item" ui-sref="gymGallary">
-        <i class="icon ion-images"></i>
-      </a>
-      <a class="tab-item" ui-sref="distanceMap">
-        <i class="icon ion-ios-location"></i>
-      </a>
-    </div>
+    <!--<div class="tabs flxy-tabs" style="position:fixed;bottom:47px; border:none;border-color:#444444 !important">
+    
+    </div>-->
     <div class="tabs flxy-tabs" style="border-color:#444444 !important">
-    <a class="tab-item" style="font-weight: 900; border:none;border-color:#444444 !important" ng-click="reserve()">
-      RESERVE
-    </a>
-</div>
+        <a class="tab-item" ng-click="call()">
+            <i class="icon ion-ios-telephone"></i>
+        </a>
+        <a class="tab-item" ui-sref="gymGallary">
+            <i class="icon ion-images"></i>
+        </a>
+        <a class="tab-item" ui-sref="distanceMap">
+            <i class="icon ion-ios-location"></i>
+        </a>
+        <a class="tab-item flxy-button" style="font-weight: 900; border:none;border-color:#444444 !important" ng-click="reserve()">
+            RESERVE
+        </a>
+    </div>
 </ion-view>

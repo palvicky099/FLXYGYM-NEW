@@ -1,4 +1,4 @@
-app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading, $rootScope, $cordovaSQLite) {
+app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading, $rootScope, $cordovaSQLite, $ionicPopup, dataService) {
 	//$scope.$on('$ionicView.enter', function () {
     var DataArray = [];
     var myDate = new Date();
@@ -17,7 +17,7 @@ app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading,
     },1000)
  
     function loadGymCenter() {
-        var listViewQuery = "select * from gymCenter";
+        var listViewQuery = "select * from gymCenter where cat_id = '" + $rootScope.HeaderName + "'";
         $cordovaSQLite.execute(db, listViewQuery, []).then(function (result) {
             if (result.rows.length > 0) {
                 var itemsColl = [];
@@ -28,7 +28,13 @@ app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading,
                 var jsonData = JSON.parse($scope.items);
                 $scope.listArray  = jsonData;
             } else {
-               
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Alert',
+                    template: '<div style="text-align:center; font-size:22px">No gym center available.</div>'
+                });
+                alertPopup.then(function (res) {
+                    $state.go('app.dashboard')
+                });
             }
         }, function (err) {
         });
@@ -316,21 +322,36 @@ app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading,
  $scope.rating = {};
   $scope.rating.rate = 3.5;
   $scope.rating.max = 5;
-    $scope.goDetail=function(l){
-window.localStorage.setItem("itemDetails", JSON.stringify(l));
-$ionicLoading.show({
+  $scope.goDetail = function (l) {
+      dataService.getCenterDetails(l.center_id).then(function (result) {
+          $ionicLoading.show({
+              noBackdrop: false,
+              template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Please Wait...</p>',
+              content: 'Loading',
+              animation: 'fade-in',
+              showBackdrop: true,
+              duration: 3000,
+              maxWidth: 200,
+              showDelay: 0
+          });
+          window.localStorage.setItem("GYMDetails", JSON.stringify(result.data.response));
+          window.localStorage.setItem("goDetailsFrom", "list");
+          $state.go('detail');
+         }, function (err) {
+             $ionicLoading.show({
                  noBackdrop: false,
-                template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Please Wait...</p>',
+                 template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">No Details Available</p>',
                  content: 'Loading',
-                animation: 'fade-in',
-                showBackdrop: true,
-                duration: 3000,
-                maxWidth: 200,
-                showDelay: 0
-        });
-setTimeout(function(){
-   $state.go('detail');
-    },2000)     }
+                 animation: 'fade-in',
+                 showBackdrop: true,
+                 duration: 3000,
+                 maxWidth: 200,
+                 showDelay: 0
+             });
+    });
+           window.localStorage.setItem("itemDetails", JSON.stringify(l));
+          
+  }
      $ionicModal.fromTemplateUrl('templates/filterModel.html', {
         scope: $scope,
         backdropClickToClose: true,

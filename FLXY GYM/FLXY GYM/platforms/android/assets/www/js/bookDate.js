@@ -1,9 +1,9 @@
 app.controller('bookDateCtrl', function($scope, $ionicLoading, $cordovaDialogs,  $state) {
 	  var DataArray = [];
     var myDate = new Date();
-    var nextDay = new Date(myDate);
     for (var i = 0; i <= 6; i++)
     {
+        var nextDay = new Date();
         nextDay.setDate(myDate.getDate() + i);
        var ds = nextDay.getFullYear() + '-' + ('0' + (nextDay.getMonth() + 1)).slice(-2) + '-' + ('0' + nextDay.getDate()).slice(-2);
 var DataArrays = {

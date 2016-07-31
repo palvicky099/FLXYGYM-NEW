@@ -5,9 +5,9 @@
         </button>
          <button class="button button-clear button-positive icon ion-ios-cart-outline flxy-button" ui-sref="cart"></button>
     </ion-header-bar>
-    <ion-content >
+    <ion-content>
     <ion-list>
-  <ion-checkbox class="checkbox-royal" ng-model="d.id" ng-repeat="d in dateScope">{{d.dateName}}</ion-checkbox>
+  <ion-checkbox class="checkbox-royal" ng-model="d.id" ng-repeat="d in dateScope" ng-disabled="false">{{d.dateName | date:'dd-MMM-yyyy'}}</ion-checkbox>
 </ion-list>
     </ion-content>
   <div class="tabs tabs-icon-top flxy-tabs" style="font-weight: 900;height: 60px">
