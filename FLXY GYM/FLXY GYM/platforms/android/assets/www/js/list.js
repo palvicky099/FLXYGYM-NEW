@@ -1,5 +1,6 @@
 app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading, $rootScope, $cordovaSQLite, $ionicPopup, dataService) {
-	//$scope.$on('$ionicView.enter', function () {
+    //$scope.$on('$ionicView.enter', function () {
+  $scope.item =  JSON.parse(window.localStorage.getItem("ListItemData"));
     var DataArray = [];
     var myDate = new Date();
     for (var i = 0; i <= 6; i++)
@@ -11,13 +12,13 @@ app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading,
     $scope.listArray = [];
     $scope.numberSelection = 1500;
     $scope.dateScope = DataArray;
-    $scope.categoryName = $rootScope.HeaderName;
+    $scope.categoryName = $scope.item.cat_name;
     setTimeout(function () {
         loadGymCenter();
     },1000)
  
     function loadGymCenter() {
-        var listViewQuery = "select * from gymCenter where cat_id = '" + $rootScope.HeaderName + "'";
+        var listViewQuery = "select * from gymCenter where cat_id = '" + $scope.item.cat_name + "'";
         $cordovaSQLite.execute(db, listViewQuery, []).then(function (result) {
             if (result.rows.length > 0) {
                 var itemsColl = [];

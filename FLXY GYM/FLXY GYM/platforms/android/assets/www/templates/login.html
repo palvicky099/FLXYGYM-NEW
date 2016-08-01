@@ -1,12 +1,13 @@
 <ion-view class="" cache-view="false">
-   <ion-content style="margin-top: 30px">
+   <ion-content>
+       <div style="height:30px"></div>
        <div align="center">
        <div class="logoImg animated zoomIn"></div>
        </div>
 <div class="list animated zoomIn">
   <label class="item item-input item-floating-label" style="border: none;width: 95%;">
-    <span class="input-label span_text" >Username</span>
-     <input type="text" style=" padding-left: 10px !important"   placeholder="Username" class="loginField" ng-model="model.username">
+    <span class="input-label span_text" >Email ID / Mobile No</span>
+     <input type="text" style=" padding-left: 10px !important"   placeholder="Email ID / Mobile No" class="loginField" ng-model="model.username">
   </label>
   <label class="item item-input item-floating-label" style="border: none; width: 95%">
     <span class="input-label span_text" >Password</span>
@@ -14,13 +15,13 @@
   </label>
   </div>
        <div align="center">
-           <button class="button button-block redButton animated zoomIn" ng-click="login()" style="width:95%;">
+           <button class="button button-block redButton animated zoomIn" ng-click="btnLogin(model)" style="width:95%;min-height:35px !important">
                Login
            </button>
        </div>
-       <h5 style="text-align:center">Or</h5>
+       <h5 style="text-align:center">OR</h5>
        <div align="center">
-           <button class="button button-block animated zoomIn ion-social-facebook"  ng-click="login()" style="width:95%;background-color:#3b5998; color:white">
+           <button class="button button-block animated zoomIn ion-social-facebook"  ng-click="fbLogin(model)" style="width:95%;min-height:35px !important; background-color:#3b5998; color:white">
                <!--<div class="button ion-social-facebook" style="background-color:white;color:#3b5998"></div>-->
              &nbsp;&nbsp;  Login with Facebook
            </button>

@@ -136,6 +136,7 @@ app.controller('dashboardCtrl', function($cordovaGeolocation, $scope, $q, $state
 //  }
 //	];
  $scope.goList = function (l) {
+     window.localStorage.setItem("ListItemData", JSON.stringify(l));
      $rootScope.HeaderName = l.cat_name;
      $rootScope.categoryID = l.cat_id;
      $state.go('list')

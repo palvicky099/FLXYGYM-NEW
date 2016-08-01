@@ -2,9 +2,9 @@ angular.module('starter.services', [])
 .factory('dataService', function ($http, $rootScope) {
     var factory = [];
     var url = 'http://www.flxygym.com/home/api/';
-   /* factory.login = function (model) {
+    factory.login = function (model) {
         return $http.post(url + 'Login', model);
-    };*/
+    };
     factory.getCategory = function () {
         return $http.get(url + 'get_category.php');
     };
