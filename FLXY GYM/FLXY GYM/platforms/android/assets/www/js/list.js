@@ -1,24 +1,67 @@
-app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading, $rootScope, $cordovaSQLite, $ionicPopup, dataService) {
-    //$scope.$on('$ionicView.enter', function () {
-  $scope.item =  JSON.parse(window.localStorage.getItem("ListItemData"));
+app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading, $rootScope, $cordovaSQLite, $ionicPopup, dataService, $cordovaDialogs) {
     var DataArray = [];
+
+
+
     var myDate = new Date();
-    for (var i = 0; i <= 6; i++)
-    {
+    for (var i = 0; i <= 6; i++) {
         var nextDay = new Date();
         nextDay.setDate(myDate.getDate() + i);
         DataArray.push(nextDay.getFullYear() + '-' + ('0' + (nextDay.getMonth() + 1)).slice(-2) + '-' + ('0' + nextDay.getDate()).slice(-2));
     }
-    $scope.listArray = [];
-    $scope.numberSelection = 1500;
+    $scope.item = JSON.parse(window.localStorage.getItem("ListItemData"));
+    $scope.numberSelection = 0;
     $scope.dateScope = DataArray;
     $scope.categoryName = $scope.item.cat_name;
     setTimeout(function () {
-        loadGymCenter();
-    },1000)
- 
-    function loadGymCenter() {
-        var listViewQuery = "select * from gymCenter where cat_id = '" + $scope.item.cat_name + "'";
+        loadFunction();
+    }, 1000)
+    function loadFunction() {
+        var model = {
+            "cat_id": $scope.item.cat_id,
+            "date": $scope.dateScope[0]
+        }
+        dataService.getDateCenter(model).then(function (result) {
+            if (result.data.response.length > 0) {
+                var datearrayColls = [];
+                for (var i = 0; i < result.data.response.length; i++) {
+                    datearrayColls.push(result.data.response[i].center_id);
+                };
+            } else {
+                $scope.listArray = [];
+                $cordovaDialogs.confirm('No gym center available', 'Alert', ['OK'])
+            }
+            loadGymCenter(datearrayColls);
+        }, function (err) {
+        });
+    }
+    // -----------Date Click-------------
+    $scope.dateClick = function (dateSelected) {
+        $scope.listArray = [];
+        var model = {
+            "cat_id": $scope.item.cat_id,
+            "date": dateSelected
+        }
+            dataService.getDateCenter(model).then(function (result) {
+                if (result.data.response.length > 0) {
+                    var datearrayColls = [];
+                    for (var i = 0; i < result.data.response.length; i++) {
+                        datearrayColls.push(result.data.response[i].center_id);
+                    };
+                } else {
+                }
+                loadGymCenter(datearrayColls);
+            }, function (err) {
+            });
+    }
+   
+   
+    function loadGymCenter(d) {
+        $ionicLoading.show({
+            noBackdrop: false,
+            template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Please Wait...</p>'
+        });
+        var listViewQuery = "select * from gymCenter where cat_id = '" + $scope.item.cat_name + "' and  center_id in (" + d + ")";
         $cordovaSQLite.execute(db, listViewQuery, []).then(function (result) {
             if (result.rows.length > 0) {
                 var itemsColl = [];
@@ -27,8 +70,12 @@ app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading,
                 };
                 $scope.items = JSON.stringify(itemsColl);
                 var jsonData = JSON.parse($scope.items);
-                $scope.listArray  = jsonData;
+                $scope.listArray = jsonData;
+                setTimeout(function () {
+                    $ionicLoading.hide();
+                },2000)
             } else {
+                $ionicLoading.hide();
                 var alertPopup = $ionicPopup.alert({
                     title: 'Alert',
                     template: '<div style="text-align:center; font-size:22px">No gym center available.</div>'
@@ -377,18 +424,37 @@ app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading,
     $scope.showFilter=function(){
           $scope.selectMember.show();
     }
-     $scope.dateClick=function(){
-         $ionicLoading.show({
-                 noBackdrop: false,
-                template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Please Wait...</p>',
-                 content: 'Loading',
-                animation: 'fade-in',
-                showBackdrop: true,
-                duration: 3000,
-                maxWidth: 200,
-                showDelay: 0
-        });
-     }
+   
+    //Place drop down 
+
+    var placeDropDownQuery = "select distinct loc_id, location from gymCenter";
+    $cordovaSQLite.execute(db, placeDropDownQuery, []).then(function (result) {
+        if (result.rows.length > 0) {
+            var itemsColl = [];
+            itemsColl[0] = { loc_id: "0", location: "All" };
+            for (var i = 0; i < result.rows.length; i++) {
+                itemsColl[i + 1] = result.rows.item(i);
+            };
+            $scope.items = JSON.stringify(itemsColl);
+            var jsonData = JSON.parse($scope.items);
+            $scope.Locations = jsonData;
+            $scope.locationDetails = {
+                location: $scope.Locations,
+                SelectedLocation: { loc_id: "0", location: "All" }
+            };
+        }
+        else {
+            $scope.Locations = [{ loc_id: "0", location: "All" }];
+            $scope.locationDetails = {
+                location: $scope.Locations,
+                SelectedLocation: { loc_id: "0", location: "All" }
+            };
+        }
+    }, function (err) {
+    });
+
+
+
  })
 
 

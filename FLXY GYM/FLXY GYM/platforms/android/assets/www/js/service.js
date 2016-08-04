@@ -11,6 +11,9 @@ angular.module('starter.services', [])
     factory.getCenter = function (model) {
         return $http.get(url + 'get_center.php?Cat_id=' + model);
     };
+    factory.getDateCenter = function (model) {
+        return $http.get(url + 'get_center.php?Cat_id=' + model.cat_id + '&date=' + model.date);
+    };
     factory.getCenterDetails = function (model) {
         return $http.get(url + 'get_center_details.php?c_id=' + model);
     };

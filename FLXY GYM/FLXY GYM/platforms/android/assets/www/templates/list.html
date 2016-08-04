@@ -6,8 +6,26 @@
           <button class="button button-clear button-positive icon ion-ios-settings flxy-button" ng-click="showFilter()"></button>
     </ion-header-bar>
      <div class="row animated bounceInDown" style="position:fixed; top:39px; z-index:1000;">
-          <div class="col abc" ng-repeat="d in dateScope" ng-click="dateClick()"><h4 class="week">{{d | date:'dd' }}</h4><h5 class="week">{{d | date:'EEE' }}</h5></div>
+          <div class="col abc" ng-repeat="d in dateScope" ng-click="dateClick(d)"><h4 class="week">{{d | date:'dd' }}</h4><h5 class="week">{{d | date:'EEE' }}</h5></div>
       </div>
+    <div class="list card list-inset Paddingtop animated zoomIn" style="position:fixed;bottom:-10px; z-index:1000; width:104%;left:-10px">
+        <label class="item item-input item-select flxy-tabs">
+            <div class="input-label flxy-tabs">
+                Select Location
+            </div>
+            <!--<!--<select class="flxy-tabs" ng-model="c" ng-click="dropDownClick(c)">
+                <option selected>Andheri</option>
+                <option >Kandivali</option>
+                <option>Borivali</option>
+                <option>Dawrka</option>
+            </select>-->
+            <select class="item-text-wrap flxy-button" name="mySelect" id="mySelect" ng-change="dropDownClick(locationDetails.SelectedLocation)"
+                    ng-options="option.location for option in locationDetails.location track by option.loc_id"
+                    ng-model="locationDetails.SelectedLocation"></select>
+        </label>
+    </div>
+
+   
     <ion-content class="" style="margin-top:75px">
     <div class="list">
     <a class="item item-thumbnail-left item-text-wrap Paddingtop animated zoomIn" ng-repeat="l in listArray" ng-click="goDetail(l)">
@@ -24,6 +42,7 @@
     </a>
 </div>
     </ion-content>
+   
 </ion-view>
 
 <style>
