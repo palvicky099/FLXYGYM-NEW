@@ -183,8 +183,8 @@ function insertGymCenter() {
                         gymCenterDatas.push(arrayGymCenter.center_id);
                         gymCenterDatas.push(arrayGymCenter.center_name);
 
-                      //  gymCenterDatas.push(arrayGymCenter.center_imgpath);
-                        gymCenterDatas.push("http://www.bodybuilding.com/images/2015/december2/how-to-deal-with-a-busy-gym-graphics-3.jpg");
+                        gymCenterDatas.push(arrayGymCenter.center_imgpath);
+                      //  gymCenterDatas.push("http://www.bodybuilding.com/images/2015/december2/how-to-deal-with-a-busy-gym-graphics-3.jpg");
 
                         gymCenterDatas.push(arrayGymCenter.price);
                         gymCenterDatas.push(arrayGymCenter.price_id);
@@ -215,7 +215,7 @@ function insertGymCenter() {
                     gymCenterQuery += gymCenterArgs.join(", ");
                     $cordovaSQLite.execute(db, gymCenterQuery, gymCenterDatas).then(function (res) {
                     }, function (err) {
-                      //  alert("error")
+                     
                     });
                     k = j;
                     j = j + interval;

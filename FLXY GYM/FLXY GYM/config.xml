@@ -24,6 +24,19 @@
   <preference name="InAppBrowserStorageEnabled" value="True" />
   <preference name="SuppressesIncrementalRendering" value="True" />
   <preference name="windows-target-version" value="10.0" />
+   <platform name="android">
+     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
+    <icon src="resources/android/icon/drawable-mdpi-icon.png" density="mdpi"/>
+    <icon src="resources/android/icon/drawable-hdpi-icon.png" density="hdpi"/>
+    <icon src="resources/android/icon/drawable-xhdpi-icon.png" density="xhdpi"/>
+    <icon src="resources/android/icon/drawable-xxhdpi-icon.png" density="xxhdpi"/>
+    <icon src="resources/android/icon/drawable-xxxhdpi-icon.png" density="xxxhdpi"/>
+    <splash src="resources/screens/android/screen-hdpi-landscape.png" density="land-hdpi" />
+    <splash src="resources/screens/android/screen-ldpi-landscape.png" density="land-ldpi" />
+    <splash src="resources/screens/android/screen-mdpi-landscape.png" density="land-mdpi" />
+    <splash src="resources/screens/android/screen-xhdpi-landscape.png" density="land-xhdpi" />
+  </platform>
+  
   <plugin name="cordova-plugin-device" spec="~1.1.1" />
   <plugin name="cordova-plugin-console" spec="~1.0.2" />
   <plugin name="cordova-plugin-whitelist" spec="~1.2.1" />

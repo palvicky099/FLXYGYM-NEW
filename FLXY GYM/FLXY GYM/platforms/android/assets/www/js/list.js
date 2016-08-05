@@ -1,59 +1,52 @@
 app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading, $rootScope, $cordovaSQLite, $ionicPopup, dataService, $cordovaDialogs) {
+    //------------- One week data -----------
     var DataArray = [];
-
-
-
     var myDate = new Date();
     for (var i = 0; i <= 6; i++) {
         var nextDay = new Date();
         nextDay.setDate(myDate.getDate() + i);
         DataArray.push(nextDay.getFullYear() + '-' + ('0' + (nextDay.getMonth() + 1)).slice(-2) + '-' + ('0' + nextDay.getDate()).slice(-2));
-    }
-    $scope.item = JSON.parse(window.localStorage.getItem("ListItemData"));
-    $scope.numberSelection = 0;
+          }
+    $scope.priceSelection = 100;
+    $scope.timeSelection = 6;
     $scope.dateScope = DataArray;
+    // ---------------One week date END ------------
+
+    $scope.item = JSON.parse(window.localStorage.getItem("ListItemData"));
     $scope.categoryName = $scope.item.cat_name;
     setTimeout(function () {
-        loadFunction();
+        loadFunction($scope.dateScope[0]);
     }, 1000)
-    function loadFunction() {
-        var model = {
-            "cat_id": $scope.item.cat_id,
-            "date": $scope.dateScope[0]
-        }
-        dataService.getDateCenter(model).then(function (result) {
-            if (result.data.response.length > 0) {
-                var datearrayColls = [];
-                for (var i = 0; i < result.data.response.length; i++) {
-                    datearrayColls.push(result.data.response[i].center_id);
-                };
-            } else {
-                $scope.listArray = [];
-                $cordovaDialogs.confirm('No gym center available', 'Alert', ['OK'])
-            }
-            loadGymCenter(datearrayColls);
-        }, function (err) {
-        });
-    }
     // -----------Date Click-------------
     $scope.dateClick = function (dateSelected) {
-        $scope.listArray = [];
+        loadFunction(dateSelected);
+    }
+    //---------- date click End---------
+
+
+
+    function loadFunction(d) {
         var model = {
             "cat_id": $scope.item.cat_id,
-            "date": dateSelected
+            "date": d
         }
-            dataService.getDateCenter(model).then(function (result) {
+        dataService.getDateCenter(model).then(function (result) {
+            if (result.data.message == "details found!") {
                 if (result.data.response.length > 0) {
                     var datearrayColls = [];
                     for (var i = 0; i < result.data.response.length; i++) {
                         datearrayColls.push(result.data.response[i].center_id);
                     };
                 } else {
+                    $scope.listArray = [];
+                    $cordovaDialogs.confirm('No gym center available', 'Alert', ['OK'])
                 }
-                loadGymCenter(datearrayColls);
-            }, function (err) {
-            });
+            }
+            loadGymCenter(datearrayColls);
+        }, function (err) {
+        });
     }
+   
    
    
     function loadGymCenter(d) {
@@ -85,6 +78,7 @@ app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading,
                 });
             }
         }, function (err) {
+            $ionicLoading.hide();
         });
     }
 
@@ -429,27 +423,28 @@ app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading,
 
     var placeDropDownQuery = "select distinct loc_id, location from gymCenter";
     $cordovaSQLite.execute(db, placeDropDownQuery, []).then(function (result) {
-        if (result.rows.length > 0) {
-            var itemsColl = [];
-            itemsColl[0] = { loc_id: "0", location: "All" };
-            for (var i = 0; i < result.rows.length; i++) {
-                itemsColl[i + 1] = result.rows.item(i);
-            };
-            $scope.items = JSON.stringify(itemsColl);
-            var jsonData = JSON.parse($scope.items);
-            $scope.Locations = jsonData;
-            $scope.locationDetails = {
-                location: $scope.Locations,
-                SelectedLocation: { loc_id: "0", location: "All" }
-            };
-        }
-        else {
-            $scope.Locations = [{ loc_id: "0", location: "All" }];
-            $scope.locationDetails = {
-                location: $scope.Locations,
-                SelectedLocation: { loc_id: "0", location: "All" }
-            };
-        }
+            if (result.rows.length > 0) {
+                var itemsColl = [];
+                itemsColl[0] = { loc_id: "0", location: "All" };
+                for (var i = 0; i < result.rows.length; i++) {
+                    itemsColl[i + 1] = result.rows.item(i);
+                };
+                $scope.items = JSON.stringify(itemsColl);
+                var jsonData = JSON.parse($scope.items);
+                $scope.Locations = jsonData;
+                $scope.locationDetails = {
+                    location: $scope.Locations,
+                    SelectedLocation: { loc_id: "0", location: "All" }
+                };
+            }
+            else {
+                $scope.Locations = [{ loc_id: "0", location: "All" }];
+                $scope.locationDetails = {
+                    location: $scope.Locations,
+                    SelectedLocation: { loc_id: "0", location: "All" }
+                };
+            }
+        
     }, function (err) {
     });
 

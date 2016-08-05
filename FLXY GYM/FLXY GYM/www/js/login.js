@@ -23,8 +23,12 @@ app.controller('loginCtrl', function ($scope, $ionicHistory, dataService, $ionic
     $scope.goBack = function () {
         $ionicHistory.goBack();
     }
-
+  
     $scope.btnLogin = function (model) {
+        $ionicLoading.show({
+            noBackdrop: false,
+            template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Please Wait...</p>'
+        });
         if (model == undefined) {
             $ionicLoading.show({
                 template: '<i class="ion ion-android-notifications" style="font-size:40px; color:#FFD700"></i><div  style="color:white;  font-size: 15px;margin-top: 10px;">Please enter valid Email Address or Password</div>',
@@ -36,9 +40,10 @@ app.controller('loginCtrl', function ($scope, $ionicHistory, dataService, $ionic
                 maxWidth: 200,
                 showDelay: 0
             });
+            $ionicLoading.hide();
             $scope.show = false;
         }
-        else if (model.username == '' || model.username == undefined || model.password == '' || model.password == undefined) {
+        else if (model.Mobile == '' || model.Mobile == undefined || model.Password == '' || model.Password == undefined) {
             $ionicLoading.show({
                 template: '<i class="ion ion-android-notifications" style="font-size:40px; color:#FFD700"></i><div  style="color:white;  font-size: 15px;margin-top: 10px;">Please enter valid Email Address or Password</div>',
                 content: 'Loading',
@@ -50,8 +55,10 @@ app.controller('loginCtrl', function ($scope, $ionicHistory, dataService, $ionic
                 showDelay: 0
             });
             $scope.show = false;
+            $ionicLoading.hide();
         }
         else {
+           
             if (navigator.connection.type == Connection.NONE) {
                 var alertPopup = $ionicPopup.alert({
                     title: ' No internet connection',
@@ -63,12 +70,14 @@ app.controller('loginCtrl', function ($scope, $ionicHistory, dataService, $ionic
             else {
                 $scope.show = true;
                 dataService.login(model).then(function (data) {
-                    
-                    if (data) {
-                      //  window.localStorage.setItem("UserRole", data.data.UserRole);
+                    $ionicLoading.hide();
+                    if (data.data.message == "details found!") {
+                        //    window.localStorage.setItem("UserRole", data.data.UserRole);
+                        console.log(data);
                         $state.go('app.dashboard');
                     }
                     else {
+                        console.log(data);
                         $ionicLoading.show({
                             template: '<i class="ion ion-close-circled" style="font-size:40px; color:red"></i><div  style="color:white;  font-size: 15px;margin-top: 10px;">Invalid Email Address or Password</div>',
                             content: 'Loading',
@@ -81,6 +90,7 @@ app.controller('loginCtrl', function ($scope, $ionicHistory, dataService, $ionic
                         });
                     }
                 }, function (err) {
+                    $ionicLoading.hide();
                     if (navigator.connection.type == Connection.NONE) {
                         $ionicLoading.show({ template: "Please check internet connection", noBackdrop: false, duration: 2000 });
                     } else {

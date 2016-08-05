@@ -2,6 +2,7 @@ app.controller('detailCtrl', function ($scope, $cordovaDialogs, $state, $ionicLo
     $scope.goBack = function () {
         $state.go(window.localStorage.getItem("goDetailsFrom"));
     }
+    $scope.bannerUrl = '../img/logo.png'
     $scope.detailItem = JSON.parse(window.localStorage.getItem("itemDetails"));
     $scope.gymDetails = JSON.parse(window.localStorage.getItem("GYMDetails"));
 	var msg ="This will do a booking for" + " "+$scope.detailItem.center_name + " " + "and center will contact you soon. Please go to My Booking to track the status";

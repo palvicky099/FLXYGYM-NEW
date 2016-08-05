@@ -8,29 +8,21 @@
      <div class="row animated bounceInDown" style="position:fixed; top:39px; z-index:1000;">
           <div class="col abc" ng-repeat="d in dateScope" ng-click="dateClick(d)"><h4 class="week">{{d | date:'dd' }}</h4><h5 class="week">{{d | date:'EEE' }}</h5></div>
       </div>
-    <div class="list card list-inset Paddingtop animated zoomIn" style="position:fixed;bottom:-10px; z-index:1000; width:104%;left:-10px">
+    <!--<div class="list card list-inset Paddingtop animated zoomIn" style="position:fixed;bottom:-10px; z-index:1000; width:104%;left:-10px">
         <label class="item item-input item-select flxy-tabs">
             <div class="input-label flxy-tabs">
                 Select Location
             </div>
-            <!--<!--<select class="flxy-tabs" ng-model="c" ng-click="dropDownClick(c)">
-                <option selected>Andheri</option>
-                <option >Kandivali</option>
-                <option>Borivali</option>
-                <option>Dawrka</option>
-            </select>-->
             <select class="item-text-wrap flxy-button" name="mySelect" id="mySelect" ng-change="dropDownClick(locationDetails.SelectedLocation)"
                     ng-options="option.location for option in locationDetails.location track by option.loc_id"
                     ng-model="locationDetails.SelectedLocation"></select>
         </label>
-    </div>
-
-   
+    </div>-->
     <ion-content class="" style="margin-top:75px">
     <div class="list">
     <a class="item item-thumbnail-left item-text-wrap Paddingtop animated zoomIn" ng-repeat="l in listArray" ng-click="goDetail(l)">
       <img image-lazy-src="{{ l.center_imgpath }}" image-lazy-loader="lines" image-lazy-distance-from-bottom-to-load="-200"  id="listImg">
-      <h2 style="color: red">{{l.center_name}}</h2>
+      <h2 style="color: red;  white-space: nowrap;">{{l.center_name}}</h2>
       <p>10am to 12pm</p>
        <p>{{l.location}}</p>
 <p style="color:green">{{l.price}} Rs</p>
@@ -42,9 +34,7 @@
     </a>
 </div>
     </ion-content>
-   
 </ion-view>
-
 <style>
   .week{
     text-align: center;

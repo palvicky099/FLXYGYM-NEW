@@ -76,6 +76,7 @@ app.controller('placenearbyCtrl', function ($scope, $state, $ionicPopup, $cordov
 
   $scope.goDetail = function (l) {
       dataService.getCenterDetails(l.center_id).then(function (result) {
+          console.log(result)
           $ionicLoading.show({
               noBackdrop: false,
               template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Please Wait...</p>',

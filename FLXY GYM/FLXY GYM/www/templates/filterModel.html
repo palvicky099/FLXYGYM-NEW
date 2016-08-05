@@ -18,20 +18,32 @@
                           ng-model="locationDetails.SelectedLocation"></select>
               </label>
           </div>
-<div class="card animated zoomIn">
+<!--<div class="card animated zoomIn">
   <div class="item item-divider">
    Select 
   </div>
   <ion-radio  class="" ng-model="choice" ng-value="'A'">Distance</ion-radio>
   <ion-radio class="" ng-model="choice" ng-value="'B'">Time</ion-radio>
-</div>
+</div>-->
+
+        <div class="card  animated zoomIn">
+            <div class="item item-divider">
+              Time ({{timeSelection}}) AM
+            </div>
+            <div class="range range-positive">
+                5 AM
+                <input type="range" name="volume" min="1" max="12" value="{{timeSelection}}" ng-model="timeSelection">
+                12 AM
+            </div>
+        </div>
+
 <div class="card  animated zoomIn">
   <div class="item item-divider">
-   Select Price ({{numberSelection}})
+    Price ({{priceSelection}})
   </div>
     <div class="range range-positive">
-        1000
-        <input type="range" name="volume" min="1000" max="2000" value="{{numberSelection}}" ng-model="numberSelection">
+        20
+        <input type="range" name="volume" min="20" max="2000" value="{{priceSelection}}" ng-model="priceSelection">
         2000
     </div>
 </div>

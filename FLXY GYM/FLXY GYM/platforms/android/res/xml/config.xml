@@ -28,6 +28,16 @@
     <feature name="CallNumber">
         <param name="android-package" value="mx.ferreyra.callnumber.CFCallNumber" />
     </feature>
+    <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
+    <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
+    <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
+    <icon density="xhdpi" src="resources/android/icon/drawable-xhdpi-icon.png" />
+    <icon density="xxhdpi" src="resources/android/icon/drawable-xxhdpi-icon.png" />
+    <icon density="xxxhdpi" src="resources/android/icon/drawable-xxxhdpi-icon.png" />
+    <splash density="land-hdpi" src="resources/screens/android/screen-hdpi-landscape.png" />
+    <splash density="land-ldpi" src="resources/screens/android/screen-ldpi-landscape.png" />
+    <splash density="land-mdpi" src="resources/screens/android/screen-mdpi-landscape.png" />
+    <splash density="land-xhdpi" src="resources/screens/android/screen-xhdpi-landscape.png" />
     <name>FLXY GYM</name>
     <description>
         An Ionic Framework and Cordova project.

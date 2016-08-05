@@ -34,7 +34,7 @@ var app = angular.module('app', ['ionic', 'starter.controllers', 'ngCordova', 'i
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
- $ionicConfigProvider.views.transition('none');
+ //$ionicConfigProvider.views.transition('none');
     $ionicConfigProvider.views.swipeBackEnabled(false);
     $ionicConfigProvider.tabs.position('bottom');
   $stateProvider
@@ -125,7 +125,7 @@ var app = angular.module('app', ['ionic', 'starter.controllers', 'ngCordova', 'i
                .state('gymGallary', {
            url: "/gymGallary",
            templateUrl: "templates/gymGallary.html",
-           controller: 'gymGallaryCtrl'
+           controller: 'detailCtrl'
        })
                    .state('flxyMemberShip', {
            url: "/flxyMemberShip",

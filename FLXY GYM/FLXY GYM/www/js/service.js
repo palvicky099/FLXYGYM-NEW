@@ -3,7 +3,7 @@ angular.module('starter.services', [])
     var factory = [];
     var url = 'http://www.flxygym.com/home/api/';
     factory.login = function (model) {
-        return $http.post(url + 'Login', model);
+        return $http.post(url + 'flxy_login.php?Mobile=' + model.Mobile + '&Password=' + model.Password);
     };
     factory.getCategory = function () {
         return $http.get(url + 'get_category.php');
@@ -22,6 +22,9 @@ angular.module('starter.services', [])
     };
      factory.getGymMemberDetails = function () {
         return $http.get(url + 'get_gym_member_details.php');
-    };
+     };
+     factory.getAvailableGymCenter = function (model) {
+         return $http.get(url + 'get_available_center.php?c_id='+model);
+     };
     return factory;
 });

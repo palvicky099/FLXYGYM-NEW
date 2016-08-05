@@ -2,7 +2,7 @@ app.controller('orderDetailCtrl', function ($scope) {
     $scope.testmethod = function() {
         onDeviceReadyTest();
     }
-
+  $scope.dateDetails = JSON.parse(window.localStorage.getItem("selectedDate"));
 // Global InAppBrowser reference
 var iabRef = null;
 

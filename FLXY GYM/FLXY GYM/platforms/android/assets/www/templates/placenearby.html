@@ -29,7 +29,7 @@
         <div class="list">
             <a class="item item-thumbnail-left item-text-wrap Paddingtop animated zoomIn" ng-repeat="l in listArray | filter: search" ng-click="goDetail(l)">
                 <img image-lazy-src="{{ l.center_imgpath }}" image-lazy-loader="lines" image-lazy-distance-from-bottom-to-load="-200" id="listImg">
-                <h2 style="color: red">{{l.center_name}}</h2>
+                <h2 style="color: red; white-space: nowrap;">{{l.center_name}}</h2>
                 <p>10am to 12pm</p>
                 <p>{{l.location}}</p>
                 <p style="color:green">{{l.price}} Rs</p>
