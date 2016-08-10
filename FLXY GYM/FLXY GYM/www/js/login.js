@@ -71,13 +71,12 @@ app.controller('loginCtrl', function ($scope, $ionicHistory, dataService, $ionic
                 $scope.show = true;
                 dataService.login(model).then(function (data) {
                     $ionicLoading.hide();
-                    if (data.data.message == "details found!") {
-                        //    window.localStorage.setItem("UserRole", data.data.UserRole);
+                    if (data.data.message == "Success") {
+                          window.localStorage.setItem("LoginData", JSON.stringify(data.data));
                         console.log(data);
                         $state.go('app.dashboard');
                     }
                     else {
-                        console.log(data);
                         $ionicLoading.show({
                             template: '<i class="ion ion-close-circled" style="font-size:40px; color:red"></i><div  style="color:white;  font-size: 15px;margin-top: 10px;">Invalid Email Address or Password</div>',
                             content: 'Loading',

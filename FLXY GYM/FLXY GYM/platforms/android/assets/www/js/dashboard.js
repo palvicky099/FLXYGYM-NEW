@@ -23,6 +23,18 @@ app.controller('dashboardCtrl', function($cordovaGeolocation, $scope, $q, $state
      },function(err){
          $scope.dashList = JSON.parse(window.localStorage.getItem("Category"));
      });
+     $scope.LoginData = JSON.parse(window.localStorage.getItem("LoginData"));
+     var getProfileModel = {
+         "mobile": $scope.LoginData.mobile
+     }
+
+     dataService.getProfile(getProfileModel).then(function (result) {
+         window.localStorage.setItem("UserProfile", JSON.stringify(result.data.response));
+        
+         //  $scope.dashList = result.data.response;
+     }, function (err) {
+         $scope.dashList = JSON.parse(window.localStorage.getItem("Category"));
+     });
  }
  $scope.dashList = JSON.parse(window.localStorage.getItem("Category"));
 //dataService.getGymMemberDetails().then(function (result) {
