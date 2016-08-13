@@ -189,8 +189,8 @@ function insertGymCenter() {
                     for (var i = k; i < j; i++) {
                         var arrayGymCenter = $scope.gymCenterData[i];
                         gymCenterArgs.push("(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-                     //   gymCenterDatas.push(arrayGymCenter.cat_id);
-                        gymCenterDatas.push("SPORTS");
+                        gymCenterDatas.push(arrayGymCenter.cat_id);
+                       // gymCenterDatas.push("SPORTS");
 
                         gymCenterDatas.push(arrayGymCenter.center_id);
                         gymCenterDatas.push(arrayGymCenter.center_name);

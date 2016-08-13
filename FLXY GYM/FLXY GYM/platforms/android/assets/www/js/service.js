@@ -34,11 +34,22 @@ angular.module('starter.services', [])
      };
      factory.updateProfile = function (model) {
          return $http.post(url + 'update_user_profile.php?data=' + JSON.stringify(model));
-
      };
      factory.register = function (data) {
-         return $http.post('http://www.flxygym.com/home/api/register.php?name=keyur&email=keyurmandalia24@gmail.com&mobile=9167518015&password=keyur');
+         return $http.post('http://www.flxygym.com/home/api/register.php?data=' + JSON.stringify(data));
      };
-   // 
+     factory.registerSuccess = function (OTPData) {
+         return $http.post('http://www.flxygym.com/home/api/registration_success.php?data=' + JSON.stringify(OTPData));
+     };
+     factory.forgotPassword = function (modelMobile) {
+         return $http.post(' http://www.flxygym.com/home/api/forgot_password.php?mobile=' + modelMobile);
+     };
+     factory.forgot_Success = function (data) {
+         return $http.post(' http://www.flxygym.com/home/api/forgot_success.php?data=' + JSON.stringify(data));
+     };
+     factory.gym_membership = function (model) {
+         return $http.post(' http://www.flxygym.com/home/api/gym_membership.php?c_id=' + model);
+     };
+    // 
     return factory;
 });

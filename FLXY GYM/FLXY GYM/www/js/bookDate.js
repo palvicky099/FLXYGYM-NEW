@@ -1,5 +1,6 @@
-app.controller('bookDateCtrl', function ($scope, $ionicLoading, $cordovaDialogs, $state, dataService) {
-//$scope.$on('$ionicView.enter', function () {
+app.controller('bookDateCtrl', function ($scope, $ionicLoading, $cordovaDialogs, $state, dataService, $rootScope) {
+    //$scope.$on('$ionicView.enter', function () {
+    $scope.showMemberShip = $rootScope.plan;
     var DataArray = [];
     var myDate = new Date();
     for (var i = 0; i <= 6; i++)
@@ -92,4 +93,9 @@ app.controller('bookDateCtrl', function ($scope, $ionicLoading, $cordovaDialogs,
         window.localStorage.setItem("selectedDate", JSON.stringify($scope.tagsarray));
         $state.go('orderDetail');
     }
+    dataService.gym_membership($scope.detailItem.center_id).then(function (result)
+    {
+        console.log(result.data)
+        $scope.flxyGymData = result.data;
+    })
 })

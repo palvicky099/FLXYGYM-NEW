@@ -14,11 +14,11 @@
 
      <div align="center" style="margin-top: 50px"> 
        <label class="item item-input item-floating-label animated zoomIn" style="text-align: center;width:70%">
-    <input type="text" style="float: center; text-align: center;" placeholder="Enter your OTP code here">
+    <input type="text" style="float: center; text-align: center;" placeholder="Enter your OTP code here" ng-model="otp">
   </label>
   </div>
   <div align="center" style="margin-top: 30px">  
- <button class="button button-block redButton animated zoomIn" ui-sref="app.dashboard" style="width:95%;">
+ <button class="button button-block redButton animated zoomIn" ng-click="otpCheck(otp)" style="width:95%;">
   CONFIRM
 </button>
 </div>

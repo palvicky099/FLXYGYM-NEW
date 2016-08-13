@@ -72,7 +72,7 @@ app.controller('loginCtrl', function ($scope, $ionicHistory, dataService, $ionic
                 dataService.login(model).then(function (data) {
                     $ionicLoading.hide();
                     if (data.data.message == "Success") {
-                          window.localStorage.setItem("LoginData", JSON.stringify(data.data));
+                        window.localStorage.setItem("UserProfile", JSON.stringify(data.data));
                         console.log(data);
                         $state.go('app.dashboard');
                     }

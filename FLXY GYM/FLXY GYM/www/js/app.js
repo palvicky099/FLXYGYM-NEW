@@ -18,7 +18,8 @@ var app = angular.module('app', ['ionic', 'starter.controllers', 'ngCordova', 'i
     db = window.openDatabase("FLXY.db", "1.0", "FLXYGYM", 500000);
       // db = $cordovaSQLite.openDB('WD.db');
     //--------------GYM center table------------------
-    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS gymCenter (id integer primary key,cat_id text, center_id text, " +
+    $cordovaSQLite.execute(db,
+        "CREATE TABLE IF NOT EXISTS gymCenter (id integer primary key,cat_id text, center_id text, " +
                               " center_name text, center_imgpath text, price text, price_id text, address text , branch_addr text," +
                               " center_slot_data text, grade text, grade_id text, landmark text, latitude text, longitude text, " +
                               " margin text, s_id text, s_name text, seats_perday text, distance text, location text, loc_id text)");
@@ -135,6 +136,11 @@ var app = angular.module('app', ['ionic', 'starter.controllers', 'ngCordova', 'i
            .state('forgotPassword', {
            url: "/forgotPassword",
            templateUrl: "templates/forgotPassword.html",
+           controller: 'forgotPasswordCtrl'
+           })
+       .state('newPassword', {
+           url: "/newPassword",
+           templateUrl: "templates/newPassword.html",
            controller: 'forgotPasswordCtrl'
        })
 ;

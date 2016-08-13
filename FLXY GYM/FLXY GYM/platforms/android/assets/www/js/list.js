@@ -54,12 +54,12 @@ app.controller('listCtrl', function ($scope, $state, $ionicModal, $ionicLoading,
             noBackdrop: false,
             template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Please Wait...</p>'
         });
-        var listViewQuery = "select * from gymCenter where cat_id = '" + $scope.item.cat_name + "' and  center_id in (" + d + ")";
+        var listViewQuery = "select * from gymCenter where cat_id like '%" + $scope.item.cat_name + "%' and  center_id in (" + d + ")";
         $cordovaSQLite.execute(db, listViewQuery, []).then(function (result) {
             if (result.rows.length > 0) {
                 var itemsColl = [];
                 for (var i = 0; i < result.rows.length; i++) {
-                    itemsColl[i] = result.rows.item(i);
+                    itemsColl[i] = result.rows.item(i); 
                 };
                 $scope.items = JSON.stringify(itemsColl);
                 var jsonData = JSON.parse($scope.items);
