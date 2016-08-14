@@ -17,7 +17,6 @@
     </a>
     <ion-content style="background-color: #f7f4f4 !important;">
     <div class="list border-none animated bounceInDown">
-      
   <a menu-close class="item item-icon-left sidemenuItem  border-none" ui-sref="app.dashboard" style="margin-top:120px">
     <i class="icon ion-ios-home-outline"></i>
    Home
@@ -26,35 +25,35 @@
     <i class="icon ion-ios-people-outline"></i>
    Membership
   </a>
-  <a class="item item-icon-left sidemenuItem border-none">
+  <a  menu-close class="item item-icon-left sidemenuItem border-none">
     <i class="icon ion-ios-bookmarks-outline"></i>
   My Booking
   </a>
-  <a menu-close class="item item-icon-left sidemenuItem border-none">
+  <!--<a menu-close class="item item-icon-left sidemenuItem border-none">
     <i class="icon ion-ios-eye-outline"></i>
   Fiction
-  </a>
-   <a class="item item-icon-left sidemenuItem border-none">
+  </a>-->
+   <!--<a class="item item-icon-left sidemenuItem border-none">
     <i class="icon ion-ios-cart-outline"></i>
    Cart
-  </a> 
+  </a>--> 
   <!-- <a class="item item-icon-left sidemenuItem border-none">
     <i class="icon ion-android-walk"></i>
   GYM Finder
   </a> -->
-  <a class="item item-icon-left sidemenuItem border-none">
+  <!--<a class="item item-icon-left sidemenuItem border-none">
     <i class="icon ion-ios-briefcase-outline"></i>
   Wallet
-  </a>
+  </a-->
   <!-- <a class="item item-icon-left sidemenuItem border-none">
     <i class="icon ion-ios-gear"></i>
   Setting
   </a> -->
-  <a class="item item-text-wrap item-icon-left sidemenuItem border-none">
+  <a  menu-close class="item item-text-wrap item-icon-left sidemenuItem border-none" ui-sref="feedback">
     <i class="icon ion-share"></i>
   Feedback/Feature Request
   </a>
-  <a menu-close class="item item-icon-left sidemenuItem border-none" ui-sref="login">
+  <a menu-close class="item item-icon-left sidemenuItem border-none" ng-click="logOut()">
     <i class="icon ion-log-out"></i>
   Logout
   </a>

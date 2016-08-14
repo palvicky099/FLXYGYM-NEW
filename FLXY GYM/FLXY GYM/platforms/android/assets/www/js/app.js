@@ -7,31 +7,33 @@
 var db = null;
 var app = angular.module('app', ['ionic', 'starter.controllers', 'ngCordova', 'ionic.rating', 'starter.services', 'ionicLazyLoad'])
 .run(function ($ionicPlatform, $cordovaSQLite, $rootScope) {
-  $ionicPlatform.ready(function() {
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if (window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-    db = window.openDatabase("FLXY.db", "1.0", "FLXYGYM", 500000);
-      // db = $cordovaSQLite.openDB('WD.db');
-    //--------------GYM center table------------------
-    $cordovaSQLite.execute(db,
-        "CREATE TABLE IF NOT EXISTS gymCenter (id integer primary key,cat_id text, center_id text, " +
-                              " center_name text, center_imgpath text, price text, price_id text, address text , branch_addr text," +
-                              " center_slot_data text, grade text, grade_id text, landmark text, latitude text, longitude text, " +
-                              " margin text, s_id text, s_name text, seats_perday text, distance text, location text, loc_id text)");
-  });
-  setTimeout(function () {
-  if (navigator.connection.type == Connection.NONE) {
-      $rootScope.categoryLoad();
-  }
-  else {
-      $rootScope.categoryLoad();
-  }
-  }, 2000)
+    $ionicPlatform.ready(function() {
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(true);
+        }
+        if (window.StatusBar) {
+            StatusBar.styleDefault();
+        }
+        db = window.openDatabase("FLXY.db", "1.0", "FLXYGYM", 500000);
+        // db = $cordovaSQLite.openDB('WD.db');
+        //--------------GYM center table------------------
+        $cordovaSQLite.execute(db,
+            "CREATE TABLE IF NOT EXISTS gymCenter (id integer primary key,cat_id text, center_id text, " +
+                                  " center_name text, center_imgpath text, price text, price_id text, address text , branch_addr text," +
+                                  " center_slot_data text, grade text, grade_id text, landmark text, latitude text, longitude text, " +
+                                  " margin text, s_id text, s_name text, seats_perday text, distance text, location text, loc_id text)");
+    });
+    if (window.localStorage.getItem("isLogin") == "yes")
+        {
+        setTimeout(function () {
+            if (navigator.connection.type == Connection.NONE) {
+            }
+            else {
+                $rootScope.categoryLoad();
+            }
+        }, 2000)
+}
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
@@ -69,12 +71,17 @@ var app = angular.module('app', ['ionic', 'starter.controllers', 'ngCordova', 'i
            url: "/otp",
            templateUrl: "templates/otp.html",
            controller: 'registerCtrl'
-
-       })
+     })
       .state('feeds', {
            url: "/feeds",
            templateUrl: "templates/feeds.html",
            controller: 'feedsCtrl'
+
+      })
+       .state('feedback', {
+           url: "/feedback",
+           templateUrl: "templates/feedback.html",
+           controller: 'feedbackCtrl'
 
        })
        .state('workout', {
@@ -143,7 +150,13 @@ var app = angular.module('app', ['ionic', 'starter.controllers', 'ngCordova', 'i
            templateUrl: "templates/newPassword.html",
            controller: 'forgotPasswordCtrl'
        })
-;
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/dashboard');
+    ;
+
+  if (window.localStorage.getItem("isLogin") == "yes")
+  {
+      $urlRouterProvider.otherwise('/app/dashboard');
+  }
+  else {
+      $urlRouterProvider.otherwise('/login');
+  }
 });

@@ -2,11 +2,16 @@ app.controller('forgotPasswordCtrl', function ($scope, $ionicLoading, $state, $i
     $scope.forgotPassword = function (mobile) {
         if (mobile)
         {
+            $ionicLoading.show({
+                noBackdrop: false,
+                template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Please Wait...</p>'
+            });
             dataService.forgotPassword(mobile).then(function (result) {
+                $ionicLoading.hide();
                 window.localStorage.setItem("registerSuccess", JSON.stringify(result.data.response));
             $scope.data = {};
             var myPopup = $ionicPopup.show({
-                template: '<input type="password" ng-model="data.otp">',
+                template: '<input type="text" style="border:1px solid #ddd; text-align:center"  ng-model="data.otp">',
                 title: 'Enter OTP',
                 subTitle: 'OTP has been send to your mobile number',
                 scope: $scope,
@@ -26,9 +31,11 @@ app.controller('forgotPasswordCtrl', function ($scope, $ionicLoading, $state, $i
                 ]
             });
             myPopup.then(function (res) {
-                var modelOTP = JSON.parse(window.localStorage.getItem("registerSuccess"));
-                if (modelOTP[0].otp == res) {
+                if (res) {
+                    var modelOTP = JSON.parse(window.localStorage.getItem("registerSuccess"));
+                    if (modelOTP[0].otp == res) {
                         $state.go('newPassword');
+                    }
                 }
             });
         })
@@ -70,12 +77,17 @@ app.controller('forgotPasswordCtrl', function ($scope, $ionicLoading, $state, $i
                     showDelay: 0
                 });
             } else {
+                $ionicLoading.show({
+                    noBackdrop: false,
+                    template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Please Wait...</p>'
+                });
                 var modelOTP = JSON.parse(window.localStorage.getItem("registerSuccess"));
                 var model = {
                     "mobile": modelOTP[0].mobile,
                     "password": user.password,
                 }
                 dataService.forgot_Success(model).then(function (result) {
+                    $ionicLoading.hide();
                     if (result.data.message == "success") {
                         $state.go('login');
                         $ionicLoading.show({

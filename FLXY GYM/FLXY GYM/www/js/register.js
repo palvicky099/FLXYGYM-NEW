@@ -27,6 +27,10 @@ app.controller('registerCtrl', function ($scope, dataService, $ionicHistory, $st
                     showDelay: 0
                 });
             } else {
+                $ionicLoading.show({
+                    noBackdrop: false,
+                    template: '<p class="item"><ion-spinner icon="lines"/></p><p class="item flxy-button">Please Wait...</p>'
+                });
                 var model = {
                     "name":user.name,
                     "email":user.email,
@@ -34,14 +38,29 @@ app.controller('registerCtrl', function ($scope, dataService, $ionicHistory, $st
                     "password":user.password
                 }
                 dataService.register(model).then(function (result) {
-                    console.log(result.data.response);
-                    window.localStorage.setItem("registerSuccess", JSON.stringify(result.data.response));
-                    $state.go('otp');
-                    user.name = '';
-                    user.password = '';
-                    user.email = '';
-                    user.confirm = '';
-                });
+                    $ionicLoading.hide();
+                    if (result.data.message == "Mobile number is already exist") {
+                        $ionicLoading.show({
+                            template: result.data.message,
+                            animation: 'fade-in',
+                            showBackdrop: true,
+                            noBackdrop: true,
+                            duration: 2000,
+                            maxWidth: 200,
+                            showDelay: 0
+                        });
+                    }
+                    else {
+                        window.localStorage.setItem("registerSuccess", JSON.stringify(result.data.response));
+                        $state.go('otp');
+                        user.name = '';
+                        user.password = '';
+                        user.email = '';
+                        user.confirm = '';
+                        user.mobile = '';
+                    }
+                    });
+                
             }
         }
     }
@@ -50,11 +69,9 @@ app.controller('registerCtrl', function ($scope, dataService, $ionicHistory, $st
             var modelOTP = JSON.parse(window.localStorage.getItem("registerSuccess"));
             if (modelOTP[0].otp == otp)
             {
-                alert(modelOTP[0].otp);
                 dataService.registerSuccess(modelOTP).then(function (result) {
                     window.localStorage.setItem("LoginData", JSON.stringify(result.data));
                     LoadData();
-                  
                 })
             }
             //else {
@@ -126,6 +143,7 @@ app.controller('registerCtrl', function ($scope, dataService, $ionicHistory, $st
                                 setTimeout(function () {
                                     $ionicLoading.hide();
                                     $state.go('app.dashboard');
+                                    window.localStorage.setItem("isLogin", "yes");
                                 }, 2000)
                             }
                         }, function (err) {

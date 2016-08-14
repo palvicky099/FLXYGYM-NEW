@@ -13,7 +13,7 @@
                   <div class="input-label">
                  Select Location               
                     </div>
-                  <select class="item-text-wrap flxy-button" name="mySelect" id="mySelect" ng-change="dropDownClick(locationDetails.SelectedLocation)"
+                  <select class="item-text-wrap" name="mySelect" id="mySelect" ng-change="dropDownClick(locationDetails.SelectedLocation)"
                           ng-options="option.location for option in locationDetails.location track by option.loc_id"
                           ng-model="locationDetails.SelectedLocation"></select>
               </label>
@@ -25,7 +25,6 @@
   <ion-radio  class="" ng-model="choice" ng-value="'A'">Distance</ion-radio>
   <ion-radio class="" ng-model="choice" ng-value="'B'">Time</ion-radio>
 </div>-->
-
         <div class="card  animated zoomIn">
             <div class="item item-divider">
               Time ({{timeSelection}}) AM

@@ -2,7 +2,7 @@ app.controller('profileCtrl', function ($scope, $ionicLoading, dataService) {
     $scope.dashList = JSON.parse(window.localStorage.getItem("UserProfile"));
     $scope.dates = new Date($scope.dashList[0].dob);
     $scope.updateProfile = function (dashList) {
-       // $scope.dashList[0].image = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWgAAAHgCAYAAACIBvdgAghRCipCSghRCipCSghRCipCSghRCipCSghRCipCSghRCipCSghRCipCCCFKSgJaCCFKSgJaCCFKSgJaCCFKSgJaCCFKSgJaCCFKSgJaCCFK6v8PYvsPaLeXZXYAAAAASUVORK5CYII='
+       $scope.dashList[0].image = 'data:image/png;base64,=dfdfgdfgdfgdfgdf'
 
         window.localStorage.setItem("UserProfile", JSON.stringify(dashList));
         $ionicLoading.show({

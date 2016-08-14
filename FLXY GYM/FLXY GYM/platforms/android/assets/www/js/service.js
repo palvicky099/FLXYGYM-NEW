@@ -50,6 +50,8 @@ angular.module('starter.services', [])
      factory.gym_membership = function (model) {
          return $http.post(' http://www.flxygym.com/home/api/gym_membership.php?c_id=' + model);
      };
-    // 
+     factory.Feedback = function (model) {
+         return $http.post(url + 'feedback.php?data=' + JSON.stringify(model));
+     };
     return factory;
 });
